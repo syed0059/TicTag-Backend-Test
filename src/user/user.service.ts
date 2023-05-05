@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schema/user.schema';
 import mongoose from 'mongoose';
-import { CreateUserDTO } from './dto/create-user.dto';
 
 @Injectable()
 export class UserService {
@@ -16,8 +15,9 @@ export class UserService {
         return res;
     }
 
-    async findByName(name: string): Promise<User> {
-        return this.userModel.findOne({"name": name});
+    async findByName(name: string): Promise<Object> {
+        const user = await this.userModel.findOne({"name": name});
+        return {_id: user.id, name: user.name, role: user.role};
     }
 
 }

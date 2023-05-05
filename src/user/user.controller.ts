@@ -18,7 +18,7 @@ export class UserController {
 
     // Assuming each user has a unique name
     @Get()
-    async findByName(@Body("name") name: string): Promise<User> {
+    async userAccountDetails(@Body("name") name: string): Promise<Object> {
         return this.userService.findByName(name);
     }
 }
