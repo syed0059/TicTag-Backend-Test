@@ -11,7 +11,7 @@ export class UserController {
     async create(@Body() createUserDTO: CreateUserDTO): Promise<Object> {
         // Ensuring the userRole is valid
         if (!Object.values(UserRole).includes(createUserDTO.role)) {
-            return ["Invalid role"];
+            throw new HttpException("Invalid role", HttpStatus.BAD_REQUEST);
         }
         return this.userService.create(createUserDTO);
     }

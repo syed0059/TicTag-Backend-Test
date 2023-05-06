@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { UserRole } from "../user.role.enum";
+import mongoose from "mongoose";
 
 @Schema()
 export class User {
@@ -7,7 +8,8 @@ export class User {
     @Prop()
     name: string;
 
-    @Prop()
+    // Ensures usernames are unique
+    @Prop({type: mongoose.Schema.Types.String, unique:true})
     username: string;
 
     @Prop()

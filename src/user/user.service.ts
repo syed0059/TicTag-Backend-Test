@@ -11,7 +11,10 @@ export class UserService {
     ) {}
 
     async create(user: User): Promise<User> {
-        const res = this.userModel.create(user);
+        const res = this.userModel.create(user).catch(() => {
+            // catches error if user with same username already exists
+            throw new HttpException("cannot have duplicate usernames", HttpStatus.BAD_REQUEST);
+        });
         return res;
     }
 
