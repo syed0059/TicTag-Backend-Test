@@ -20,6 +20,7 @@ export class UserService {
         if (!user) {
             throw new HttpException("not found", HttpStatus.NOT_FOUND);
         }
+        const {password, ...result} = user;
         return {_id: user.id, name: user.name, username: user.username, email: user.email ,role: user.role};
     }
 

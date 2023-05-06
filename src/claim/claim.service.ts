@@ -1,10 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Claim, Status } from './schema/claim.schema';
+import { Claim } from './schema/claim.schema';
 import mongoose from 'mongoose';
 import { CreateClaimDTO } from './dto/create-claim.dto';
 import { ProductService } from 'src/product/product.service';
 import { UserService } from 'src/user/user.service';
+import { Status } from './claimStatus.enum';
 
 @Injectable()
 export class ClaimService {
@@ -21,7 +22,7 @@ export class ClaimService {
         if (!user || !product) {
             throw new HttpException("not found", HttpStatus.NOT_FOUND)
         }
-        return this.claimModel.create({customerID: user["_id"], productID: product["id"], status: Status.PENDING});
+        return this.claimModel.create({customerID: user["_id"], productID: product["id"], status: Status.PENDING, purchaseDate:claimDTO.purchaseDate, claimDate: new Date()});
     }
 
     async getCustomerClaims(username: string): Promise<Claim[]> {

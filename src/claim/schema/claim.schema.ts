@@ -1,11 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose from "mongoose";
-
-export enum Status{
-    APPROVED = 1,
-    REJECTED = -1,
-    PENDING = 0
-}
+import { Status } from "../claimStatus.enum";
 
 @Schema()
 export class Claim {
@@ -14,6 +9,12 @@ export class Claim {
 
     @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'Product'})
     productID: string;
+
+    @Prop()
+    purchaseDate: Date
+
+    @Prop()
+    claimDate: Date
 
     @Prop()
     status: Status;

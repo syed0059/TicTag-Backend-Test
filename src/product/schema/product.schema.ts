@@ -8,6 +8,10 @@ export class Product {
 
     @Prop()
     price: number;
+
+    @Prop()
+    // in months
+    warrantyPeriod: number
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
