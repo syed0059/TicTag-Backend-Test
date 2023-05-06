@@ -21,7 +21,7 @@ export class UserController {
     async userAccountDetails(@Body("username") username: string, @Body("senderName") senderName: string): Promise<Object> {
         // Ensure a user can only request to view their own account
         if (senderName !== username) {
-            throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+            throw new HttpException('A user can only access their own account details', HttpStatus.FORBIDDEN);
         }
         return this.userService.findByName(username);
     }
