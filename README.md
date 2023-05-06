@@ -31,3 +31,6 @@ As part of the development, a few assumptions were made:
 - MongoDB Atlas
 - Mongoose
 - Postman
+
+## Improvements
+Currently, user passwords are stored using plaintext, however, in the future they should be stored following proper procedures for privacy protection. Users should also be issues a bearer token when they first sign-in that they can use to verify themselves whenever a request is made.
