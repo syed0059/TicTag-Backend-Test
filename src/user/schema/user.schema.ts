@@ -1,9 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-
-
-export enum userRole {
-    CUSTOMER="customer", STAFF="staff"
-}
+import { UserRole } from "../user.role.enum";
 
 @Schema()
 export class User {
@@ -12,10 +8,16 @@ export class User {
     name: string;
 
     @Prop()
+    username: string;
+
+    @Prop()
+    email: string;
+
+    @Prop()
     password: string;
 
     @Prop()
-    role: userRole;
+    role: UserRole;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

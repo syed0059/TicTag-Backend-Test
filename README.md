@@ -12,13 +12,16 @@ Developed a backend API for the warranty claims management system for a fictiona
 - [x] Staff can view all warranty claims
 - [x] Staff can approve or reject a warranty claim
 
+Uses Role-Based Access Control (RBAC) to validate user permissions to prevent unauthorised API calls
+
 ## Documentation
-Full documentation of the basic API can be found [here](https://documenter.getpostman.com/view/21207444/2s93eX1Ydr#intro)
+Full documentation of the basic API can be found [here](https://documenter.getpostman.com/view/21207444/2s93eX1Ydr)
 
 ## Assumptions
 As part of the development, a few assumptions were made:
-- All user and product names are unique
-- User role validation is done on the client side
+- Product names are unique
+- User's usernames are unique, although their names do not need to be unique
+- The sender's unique username and role are sent with each request body for role-based authentication
 
 ## Developed using
 - NestJS
@@ -26,8 +29,3 @@ As part of the development, a few assumptions were made:
 - MongoDB Atlas
 - Mongoose
 - Postman
-
-## Improvements
-Since this project was developed to demonstrate my ability to develop using new tools, I did not make the entities very complicated and used simplistic models for demonstration. 
-
-However, the system can be improved with more role validation to ensure users are not able to access functions beyond their scope. Each user should also assign themselves a unique userID such as their email address or a username to be identified by instead of their names.

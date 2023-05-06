@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Claim, Status } from './schema/claim.schema';
 import mongoose from 'mongoose';
@@ -16,14 +16,20 @@ export class ClaimService {
     ){}
 
     async create(claimDTO: CreateClaimDTO): Promise<Claim> {
-        const user = await this.userService.findByName(claimDTO.customerName);
+        const user = await this.userService.findByName(claimDTO.customerUserName);
         const product = await this.productService.findByName(claimDTO.productName);
-        return this.claimModel.create({customerID: user["id"], productID: product["id"], status: Status.PENDING});
+        if (!user || !product) {
+            throw new HttpException("not found", HttpStatus.NOT_FOUND)
+        }
+        return this.claimModel.create({customerID: user["_id"], productID: product["id"], status: Status.PENDING});
     }
 
-    async getCustomerClaims(name: string): Promise<Claim[]> {
-        const user = await this.userService.findByName(name);
-        return this.claimModel.find({customerID: user["id"]});
+    async getCustomerClaims(username: string): Promise<Claim[]> {
+        const user = await this.userService.findByName(username);
+        if (!user) {
+            throw new HttpException("not found", HttpStatus.NOT_FOUND)
+        }
+        return this.claimModel.find({customerID: user["_id"]});
     }
 
     async getAllClaims(): Promise<Claim[]> {
@@ -31,14 +37,21 @@ export class ClaimService {
     }
 
     async approveClaim(createClaimDTO: CreateClaimDTO): Promise<Claim> {
-        const user = await this.userService.findByName(createClaimDTO.customerName);
+        const user = await this.userService.findByName(createClaimDTO.customerUserName);
         const product = await this.productService.findByName(createClaimDTO.productName);
-        return this.claimModel.findOneAndUpdate({customerID:user["id"], productID:product["id"]}, {status: Status.APPROVED});
+        if (!user || !product) {
+            throw new HttpException("not found", HttpStatus.NOT_FOUND)
+        }
+        return this.claimModel.findOneAndUpdate({customerID:user["_id"], productID:product["id"]}, {status: Status.APPROVED});
     }
     
     async rejectClaim(createClaimDTO: CreateClaimDTO): Promise<Claim> {
-        const user = await this.userService.findByName(createClaimDTO.customerName);
+        console.log(createClaimDTO);
+        const user = await this.userService.findByName(createClaimDTO.customerUserName);
         const product = await this.productService.findByName(createClaimDTO.productName);
-        return this.claimModel.findOneAndUpdate({customerID:user["id"], productID:product["id"]}, {status: Status.REJECTED});
+        if (!user || !product) {
+            throw new HttpException("not found", HttpStatus.NOT_FOUND)
+        }
+        return this.claimModel.findOneAndUpdate({customerID:user["_id"], productID:product["id"]}, {status: Status.REJECTED});
     }
 }
