@@ -22,7 +22,6 @@ Full documentation of the basic API can be found [here](https://documenter.getpo
 ## Assumptions
 As part of the development, a few assumptions were made:
 - Product names are unique
-- User's usernames are unique, although their names do not need to be unique
 - The sender's unique username and role are sent with each request body for role-based authentication
 
 ## Developed using
