@@ -2,6 +2,8 @@
 
 Developed a backend API for the warranty claims management system for a fictional company as part of a technical assignment
 
+Before running, replace the DB URI with your own URI in the .env file
+
 ## Functionality
 - [x] Customer & Staff account creation with separate roles
 - [x] User can view their own account details
