@@ -5,7 +5,7 @@ Developed a backend API for the warranty claims management system for a fictiona
 Before running, replace the DB URI with your own URI in the .env file
 
 ## Installation
-Clone the git repo and then run <code>npm install</code> to install the dependencies
+Clone the git repo and then run <code>npm install</code> to install the dependencies, and then <code>npm run start</code> to start the server
 
 ## Functionality
 - [x] Customer & Staff account creation with separate roles
