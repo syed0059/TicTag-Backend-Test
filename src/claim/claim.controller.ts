@@ -1,5 +1,5 @@
 import { ClaimService } from './claim.service';
-import { Body, Controller, Get, HttpException, HttpStatus, Post, Put} from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Put} from '@nestjs/common';
 import { CreateClaimDTO } from './dto/create-claim.dto';
 import { Claim } from './schema/claim.schema';
 import { Roles } from 'src/user/roles.decorator';
@@ -15,9 +15,9 @@ export class ClaimController {
         return this.claimService.create(createClaimDTO);
     }
 
-    @Get()
+    @Get("/:username")
     @Roles(UserRole.CUSTOMER)
-    async getCustomerClaims(@Body("customerUserName") username: string, @Body("sender") sender : {username: string, role: UserRole}): Promise<Claim[]> {
+    async getCustomerClaims(@Param("username") username: string, @Body("sender") sender : {username: string, role: UserRole}): Promise<Claim[]> {
         if (sender.username !== username) {
             throw new HttpException("User can only access their own claims", HttpStatus.FORBIDDEN);
         }

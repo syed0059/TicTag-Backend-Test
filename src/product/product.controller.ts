@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, Put} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put} from '@nestjs/common';
 import { Product } from './schema/product.schema';
 import { ProductService } from './product.service';
 import { CreateProductDTO } from './dto/create-product.dto';
@@ -9,8 +9,8 @@ import { UserRole } from 'src/user/user.role.enum';
 export class ProductController {
     constructor(private productService: ProductService){}
 
-    @Get()
-    async findByName(@Body("name") name: string): Promise<Product> {
+    @Get("/:name")
+    async findByName(@Param("name") name: string): Promise<Product> {
         return this.productService.findByName(name);
     }
 

@@ -17,8 +17,8 @@ export class UserController {
     }
 
     // Assuming each user has a unique username
-    @Get()
-    async userAccountDetails(@Body("username") username: string, @Body("senderName") senderName: string): Promise<Object> {
+    @Get("/:username")
+    async userAccountDetails(@Param("username") username: string, @Body("senderName") senderName: string): Promise<Object> {
         // Ensure a user can only request to view their own account
         if (senderName !== username) {
             throw new HttpException('A user can only access their own account details', HttpStatus.FORBIDDEN);

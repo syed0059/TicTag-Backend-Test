@@ -23,6 +23,8 @@ Full documentation of the basic API can be found [here](https://documenter.getpo
 As part of the development, a few assumptions were made:
 - Product names are unique
 - The sender's unique username and role are sent with each request body for role-based authentication
+- Retrieval of claim by ID is not necessary
+- Each claim can be uniquely identified just by its owner's ID and the corresponding product's ID
 
 ## Developed using
 - NestJS
@@ -30,6 +32,7 @@ As part of the development, a few assumptions were made:
 - MongoDB Atlas
 - Mongoose
 - Postman
+- bcrypt
 
 ## Improvements
-Currently, user passwords are stored using plaintext, however, in the future they should be stored following proper procedures for privacy protection. Users should also be issues a bearer token when they first sign-in that they can use to verify themselves whenever a request is made.
+Users should be issued a bearer token when they first sign-in that they can use to verify themselves whenever a request is made.
